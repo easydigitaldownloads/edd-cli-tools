@@ -100,7 +100,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 		switch( $action ) {
 
 			case 'prune':
-				WP_CLI::success( 'Found ' . count( $logs ) . ' entries' ) );
+				WP_CLI::success( 'Found ' . count( $logs ) . ' entries' );
 				WP_CLI::confirm( 'Are you sure you want to prune these logs?', $assoc_args );
 
 				$progress = new \cli\progress\Bar( 'Deleting log entires', count( $license_ids ) );
@@ -117,7 +117,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 				break;
 
 			case 'count':
-				WP_CLI::success( 'Found ' . count( $logs ) . ' entries' ) );
+				WP_CLI::success( 'Found ' . count( $logs ) . ' entries' );
 				break;
 
 		}
