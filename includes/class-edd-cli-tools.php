@@ -42,11 +42,12 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 	 * wp edd logs prune --type=api_reqeusts --before="-1 year"
 	 * wp edd logs prune --type=api_reqeusts --before=today
 	 * wp edd logs prune --type=api_reqeusts --after=today
+	 * wp edd logs count --type=api_reqeusts --before=today
 	 */
 	public function logs( $args, $assoc_args ) {
 		global $edd_logs, $wpdb;
 
-		$available_actions = array( 'prune' );
+		$available_actions = array( 'prune', 'count' );
 		if ( empty( $args[0] ) || ! in_array( $args[0], $available_actions ) ) {
 			$list_actions = implode( ', ', $available_actions );
 			WP_CLI::error( sprintf( __( 'Invalid action. Available actions are: %s' ), $list_actions ) );
@@ -99,7 +100,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 		switch( $action ) {
 
 			case 'prune':
-				WP_CLI::success( sprintf( 'Found ' . count( $logs ) . ' entries' ) );
+				WP_CLI::success( sprintf( 'Found %d entries', count( $logs ) ) );
 				WP_CLI::confirm( 'Are you sure you want to prune these logs?', $assoc_args );
 
 				$progress = new \cli\progress\Bar( 'Deleting log entires', count( $license_ids ) );
@@ -113,6 +114,10 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 				$progress->finish();
 				WP_CLI::line( 'Recounting terms' );
 				wp_update_term_count_now( array( $term->term_id ), 'edd_log_type' );
+				break;
+
+			case 'count':
+				WP_CLI::success( sprintf( 'Found %d entries', count( $logs ) ) );
 				break;
 
 		}
