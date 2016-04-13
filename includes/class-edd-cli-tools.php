@@ -103,7 +103,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 				WP_CLI::success( 'Found ' . count( $logs ) . ' entries' );
 				WP_CLI::confirm( 'Are you sure you want to prune these logs?', $assoc_args );
 
-				$progress = new \cli\progress\Bar( 'Deleting log entires', count( $license_ids ) );
+				$progress = new \cli\progress\Bar( 'Deleting log entires', count( $logs ) );
 
 				foreach ( $logs as $log ) {
 					$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->posts WHERE ID = %d", $log ) );
