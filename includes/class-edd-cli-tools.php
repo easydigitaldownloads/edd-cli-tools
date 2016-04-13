@@ -84,11 +84,11 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 		);
 
 		if ( false !== $logs_before ) {
-			$logs_args['date_query']['before'] = strtotime( $logs_before );
+			$logs_args['date_query']['before'] = $logs_before;
 		}
 
 		if ( false !== $logs_after ) {
-			$logs_args['date_query']['after'] = strtotime( $logs_after );
+			$logs_args['date_query']['after'] = $logs_after;
 		}
 
 		$logs = $edd_logs->get_connected_logs( $logs_args );
