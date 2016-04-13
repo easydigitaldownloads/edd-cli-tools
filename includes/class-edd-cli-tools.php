@@ -80,7 +80,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 			'posts_per_page'         => -1,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-			'fields'                 => array( 'ids' ),
+			'fields'                 => 'ids',
 		);
 
 		if ( false !== $logs_before ) {
