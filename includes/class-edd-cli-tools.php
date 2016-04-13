@@ -80,7 +80,7 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 			'posts_per_page'         => -1,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-			'fields'                 => array( 'ID' ),
+			'fields'                 => array( 'ids' ),
 		);
 
 		if ( false !== $logs_before ) {
@@ -106,8 +106,8 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 				$progress = new \cli\progress\Bar( 'Deleting log entires', count( $license_ids ) );
 
 				foreach ( $logs as $log ) {
-					$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->posts WHERE ID = %d", $log->ID ) );
-					$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d", $log->ID ) );
+					$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->posts WHERE ID = %d", $log ) );
+					$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d", $log ) );
 					$progress->tick();
 				}
 
