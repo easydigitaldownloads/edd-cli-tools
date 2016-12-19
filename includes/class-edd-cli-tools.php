@@ -153,9 +153,12 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 
 		}
 
-		$price_id = isset( $assoc_args['price_id'] ) ? (int) $assoc_args['price_id'] : false;
+		$price_id    = isset( $assoc_args['price_id'] ) ? (int) $assoc_args['price_id'] : false;
+		$download_id = edd_software_licensing()->get_download_id( $license->ID );
+		$limit       = edd_software_licensing()->get_price_activation_limit( $download_id, $price_id );
 
 		update_post_meta( $license->ID, '_edd_sl_download_price_id', $price_id );
+		update_post_meta( $license->ID, '_edd_sl_limit', $limit );
 
 		WP_CLI::success( 'License downgraded' );
 
