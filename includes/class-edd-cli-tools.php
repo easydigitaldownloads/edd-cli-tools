@@ -124,4 +124,41 @@ class EDD_CLI_Toolbox extends EDD_CLI {
 		}
 	}
 
+	/**
+	 * Downgrade a license from one Price ID to a lower one
+	 *
+	 * ## OPTIONS
+	 *
+	 * --price_id=<int>: New price ID for the license
+	 *
+	 * ## EXAMPLES
+	 *
+	 * wp edd license_downgrade 57 --price_id=1
+	 * wp edd license_downgrade 599222 --price_id=0
+	 */
+	public function license_downgrade( $args, $assoc_args ) {
+
+		// Check validity of username or ID, retrieve the user object.
+		if ( empty( $args[0] ) ) {
+
+			\WP_CLI::error( __( 'A valid license ID must be specified as the first argument.' ) );
+
+		} else {
+
+			$license = get_post( $args[0] );
+
+			if ( ! $license || 'edd_license' !== $license->post_type ) {
+				\WP_CLI::error( sprintf( __( 'No license was found with ID %d.' ), $args[0] ) );
+			}
+
+		}
+
+		$price_id = isset( $assoc_args['price_id'] ) ? (int) $assoc_args['price_id'] : false;
+
+		update_post_meta( $license->ID, '_edd_sl_download_price_id', $price_id );
+
+		WP_CLI::success( 'License downgraded' );
+
+	}
+
 }
